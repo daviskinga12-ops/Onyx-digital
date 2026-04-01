@@ -1,79 +1,88 @@
 # 🖤 Onyx Digital Platform
 
-> AI-powered social media growth tool for agencies and freelancers.
-
-Onyx is a single-file web app that helps you grow your clients' social media accounts using AI — without creating new content for them. You optimize what they already post, repurpose it across platforms, and track everything in one place.
+> AI-powered social media growth agency tool. Grow any client's account without creating new content.
 
 ---
 
-## 🚀 What it does
+## What it does
 
-| Tab | What it's for |
+| Tab | Tools inside |
 |---|---|
-| **Home** | Dashboard — active clients, posts generated, stats |
-| **Optimize** | Rewrite existing captions, optimize bios, generate engagement scripts |
-| **Repurpose** | Turn 1 video into posts for Instagram, TikTok, Facebook, YouTube Shorts |
-| **Generate** | Create 30 fresh AI posts + export CSV for Buffer scheduling |
-| **Ad Briefs** | Generate full ad campaign briefs for Meta, TikTok, Google |
-| **Clients** | Track clients, packages, revenue, renewal dates |
+| **Home** | Dashboard — active clients, posts generated, revenue stats |
+| **Optimize** | Caption Optimizer, Bio Optimizer, Engagement Script Generator |
+| **Repurpose** | Cross-Platform Repurposer, Hashtag Set Generator |
+| **Algorithm** | Hook Strength Tester, Algorithm Audit, 7-Day Story Sequence, Posting Schedule, DM Funnel Generator |
+| **Generate** | 30-post AI content generator + CSV export for Buffer |
+| **Ad Briefs** | Full campaign brief generator for Meta, TikTok, Google |
+| **Clients** | Client roster, packages, revenue tracker, renewal dates |
 | **SOP Guide** | 8-step operating procedure + monthly report generator |
 
----
-
-## ⚡ How to deploy (free, 30 seconds)
-
-1. Go to [vercel.com](https://vercel.com) and sign up free
-2. Click **Add New → Project**
-3. Drag your `index.html` file in
-4. Click **Deploy**
-5. Your tool is live at a public URL
+**8 tabs. 43 AI functions. Powered by Google Gemini (free).**
 
 ---
 
-## 🔑 API Key Setup
+## Deploy (free, 30 seconds)
 
-This tool runs on **Google Gemini AI** — completely free.
+1. Push all files to a private GitHub repo
+2. Go to [vercel.com](https://vercel.com) → Add New Project → Import from GitHub
+3. Select the repo → Vercel auto-reads `vercel.json` → Deploy
+4. Live at `yourproject.vercel.app`
+
+**To update:** push a change to GitHub → Vercel redeploys automatically.
+
+---
+
+## API Key Setup
+
+This tool uses **Google Gemini AI** — completely free, no credit card needed.
 
 1. Go to [aistudio.google.com/app/apikey](https://aistudio.google.com/app/apikey)
 2. Sign in with any Google account
 3. Click **Create API key**
-4. Copy the key (starts with `AIza...`)
-5. Paste it into the Onyx setup screen when you first open the tool
+4. Copy the key — starts with `AIza...`
+5. Paste it into the Onyx setup screen on first open
 
-**Free tier:** 1,500 requests/day — more than enough for running a full agency.
-
----
-
-## 🗂️ File structure
-
-```
-index.html    ← The entire app (HTML + CSS + JavaScript, all in one file)
-README.md     ← This file
-LICENSE       ← Usage rights
-```
-
-That's it. No backend, no database, no install required.
+**Free tier:** 1,500 requests/day. More than enough for a full agency.
 
 ---
 
-## 💰 Business model
+## File structure
 
-You charge clients a monthly retainer to manage and grow their social media:
+```
+index.html      ← Entire app — HTML, CSS, JS in one file
+vercel.json     ← Deployment config + security headers
+manifest.json   ← PWA — install as app on mobile
+robots.txt      ← Blocks search engine indexing
+.gitignore      ← Keeps secrets out of GitHub
+README.md       ← This file
+LICENSE         ← Proprietary — no copying or reselling
+SECURITY.md     ← Security policy
+PRIVACY.md      ← Client-facing privacy policy
+CHANGELOG.md    ← Version history
+```
 
-| Package | Price | Platforms |
+No backend. No database. No server. No install. No monthly cost.
+
+---
+
+## Business model
+
+Charge clients a monthly retainer to grow their social media accounts:
+
+| Package | Price | What's included |
 |---|---|---|
-| Starter | KSH 5,000/mo | 1 platform |
-| Growth | KSH 10,000/mo | 2 platforms |
-| Pro | KSH 18,000/mo | All platforms |
+| Starter | KSH 5,000/mo | 1 platform, caption + hashtag optimization, monthly report |
+| Growth | KSH 10,000/mo | 2 platforms, cross-posting, engagement acceleration, report |
+| Pro | KSH 18,000/mo | All platforms, full optimization, ad brief, strategy call |
 
-With 5 Growth clients = **KSH 50,000/month** for ~4 hours of work per week.
-
----
-
-## 🛡️ License
-
-See `LICENSE` file. This tool is proprietary — built for Onyx Digital Platform only.
+5 Growth clients = **KSH 50,000/month** for ~5 hours of work per week.
 
 ---
 
-Built by Onyx Digital Platform © 2026
+## License
+
+Proprietary. See `LICENSE` file. This tool is for internal use by Onyx Digital Platform only. No copying, reselling, or redistribution.
+
+---
+
+Onyx Digital Platform © 2026 — Nairobi, Kenya
