@@ -1,0 +1,1874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Onyx Digital Platform</title>
+<meta name="description" content="AI-powered social media growth platform. Grow any account without creating new content."/>
+<meta name="robots" content="noindex, nofollow"/>
+<meta name="theme-color" content="#C9A84C"/>
+<meta property="og:title" content="Onyx Digital Platform"/>
+<meta property="og:description" content="AI-powered social media growth — internal tool"/>
+<meta property="og:type" content="website"/>
+<link rel="manifest" href="/manifest.json"/>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%23111111'/><text y='68' x='50' text-anchor='middle' font-size='52' font-family='Georgia,serif' fill='%23C9A84C'>✦</text></svg>"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg: #080808;
+  --surface: #111111;
+  --surface2: #1a1a1a;
+  --border: #232323;
+  --gold: #C9A84C;
+  --gold-dim: #7a6329;
+  --gold-glow: rgba(201,168,76,0.12);
+  --text: #f0ede6;
+  --muted: #6b6860;
+  --green: #2ecc71;
+  --red: #e74c3c;
+  --radius: 10px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background:radial-gradient(ellipse 80% 50% at 50% -20%, rgba(201,168,76,0.06) 0%, transparent 65%);pointer-events:none;z-index:0}
+
+/* ── KEY GATE ── */
+#key-gate{position:fixed;inset:0;background:#080808;z-index:1000;display:flex;align-items:center;justify-content:center;padding:24px}
+#key-gate.hidden{display:none}
+.gate-box{max-width:460px;width:100%;text-align:center}
+.gate-logo{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;letter-spacing:.06em;color:var(--gold);margin-bottom:8px}
+.gate-logo span{color:var(--muted);font-weight:400}
+.gate-box h2{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;margin:24px 0 10px}
+.gate-box p{color:var(--muted);font-size:14px;line-height:1.7;margin-bottom:28px}
+.gate-box p a{color:var(--gold);text-decoration:none}
+.gate-input{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:'DM Mono',monospace;font-size:13px;padding:14px 16px;outline:none;transition:border .2s;margin-bottom:12px}
+.gate-input:focus{border-color:var(--gold-dim)}
+.gate-note{font-size:12px;color:var(--muted);margin-bottom:20px;line-height:1.6}
+
+/* ── NAV ── */
+nav{position:sticky;top:0;z-index:100;background:rgba(8,8,8,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 28px;display:flex;align-items:center;justify-content:space-between;height:58px}
+.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:17px;letter-spacing:.06em;color:var(--gold)}
+.logo span{color:var(--text);font-weight:400;opacity:.6}
+.nav-tabs{display:flex;gap:2px}
+.nav-tab{background:none;border:none;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:13px;padding:6px 13px;cursor:pointer;border-radius:6px;transition:all .2s}
+.nav-tab:hover{color:var(--text);background:var(--surface)}
+.nav-tab.active{color:var(--gold);background:var(--surface2);border:1px solid var(--border)}
+.nav-right{display:flex;align-items:center;gap:10px}
+.key-btn{background:none;border:1px solid var(--border);color:var(--muted);font-size:11px;font-family:'DM Mono',monospace;padding:5px 10px;border-radius:5px;cursor:pointer;transition:all .2s}
+.key-btn:hover{border-color:var(--gold-dim);color:var(--gold)}
+
+/* ── MAIN ── */
+main{position:relative;z-index:1;max-width:920px;margin:0 auto;padding:36px 24px 60px}
+.page{display:none}.page.active{display:block}
+
+/* ── HERO ── */
+.hero{padding:52px 0 40px;text-align:center}
+.hero-eyebrow{font-size:11px;color:var(--gold);font-family:'DM Mono',monospace;letter-spacing:.12em;text-transform:uppercase;margin-bottom:16px}
+.hero h1{font-family:'Syne',sans-serif;font-size:46px;font-weight:800;line-height:1.08;margin-bottom:14px}
+.hero h1 span{color:var(--gold)}
+.hero p{color:var(--muted);font-size:15px;max-width:440px;margin:0 auto 36px;line-height:1.7}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:500px;margin:0 auto}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px 16px;text-align:center;position:relative;overflow:hidden}
+.stat::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%, var(--gold-glow), transparent 70%);pointer-events:none}
+.stat-num{font-family:'Syne',sans-serif;font-size:30px;font-weight:800;color:var(--gold);line-height:1}
+.stat-lbl{font-size:11px;color:var(--muted);margin-top:6px;letter-spacing:.04em}
+
+/* ── CARD ── */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:26px;margin-bottom:18px}
+.card-title{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;letter-spacing:.07em;margin-bottom:20px;color:var(--gold);text-transform:uppercase}
+
+/* ── FORM ── */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:11px;color:var(--muted);letter-spacing:.07em;text-transform:uppercase}
+.field input,.field select,.field textarea{background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:13px;padding:10px 13px;transition:border .2s;outline:none}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--gold-dim)}
+.field textarea{resize:vertical;min-height:80px;line-height:1.6}
+.field select option{background:var(--surface)}
+
+/* ── PLATFORM TOGGLES ── */
+.platform-grid{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.plat-btn{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:7px 15px;font-size:12px;color:var(--muted);cursor:pointer;transition:all .18s;user-select:none}
+.plat-btn.selected{border-color:var(--gold);color:var(--gold);background:var(--gold-glow)}
+.plat-btn:hover:not(.selected){border-color:var(--gold-dim);color:var(--text)}
+
+/* ── BUTTONS ── */
+.btn{display:inline-flex;align-items:center;gap:7px;background:var(--gold);color:#000;font-family:'Syne',sans-serif;font-weight:700;font-size:12px;letter-spacing:.05em;padding:11px 22px;border:none;border-radius:8px;cursor:pointer;transition:all .18s;text-transform:uppercase}
+.btn:hover{background:#dbb94e;transform:translateY(-1px);box-shadow:0 4px 20px rgba(201,168,76,0.25)}
+.btn:active{transform:translateY(0)}
+.btn:disabled{opacity:.35;cursor:not-allowed;transform:none;box-shadow:none}
+.btn.outline{background:none;color:var(--gold);border:1px solid var(--gold-dim)}
+.btn.outline:hover{background:var(--gold-glow);transform:translateY(-1px)}
+.btn.sm{padding:7px 14px;font-size:11px}
+.btn.ghost{background:var(--surface2);color:var(--muted);border:1px solid var(--border)}
+.btn.ghost:hover{color:var(--text);border-color:var(--muted)}
+
+/* ── LOADER ── */
+.loader{display:none;align-items:center;gap:10px;color:var(--muted);font-size:13px;padding:14px 0}
+.loader.show{display:flex}
+.spinner{width:16px;height:16px;border:2px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin .75s linear infinite;flex-shrink:0}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── PROGRESS ── */
+.progress-bar{height:2px;background:var(--border);border-radius:2px;overflow:hidden;margin:14px 0}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--gold-dim),var(--gold));width:0%;transition:width .4s;border-radius:2px}
+
+/* ── OUTPUT ── */
+.output-block{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:18px;margin-top:14px;font-size:13px;line-height:1.75;white-space:pre-wrap;font-family:'DM Mono',monospace;color:#b0ac a4;max-height:500px;overflow-y:auto;color:#aea99f}
+.output-block:empty{display:none}
+
+/* ── POSTS ── */
+.posts-grid{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+.post-item{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:16px;transition:border .2s;position:relative}
+.post-item:hover{border-color:var(--gold-dim)}
+.post-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.post-num{font-size:11px;color:var(--gold);font-family:'DM Mono',monospace}
+.post-type-badge{font-size:10px;color:var(--muted);background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:2px 8px;text-transform:uppercase;letter-spacing:.05em}
+.post-caption{font-size:13px;line-height:1.65;color:var(--text)}
+.post-hashtags{font-size:11px;color:var(--gold-dim);margin-top:10px;font-family:'DM Mono',monospace;line-height:1.6}
+.copy-btn{position:absolute;top:14px;right:14px;background:var(--surface2);border:1px solid var(--border);border-radius:5px;color:var(--muted);font-size:11px;padding:3px 9px;cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif}
+.copy-btn:hover{color:var(--gold);border-color:var(--gold-dim)}
+.copy-btn.copied{color:var(--green);border-color:rgba(46,204,113,0.3)}
+
+/* ── STEPS ── */
+.steps{display:flex;flex-direction:column;gap:0}
+.step{display:flex;gap:16px;padding:18px 0;border-bottom:1px solid var(--border)}
+.step:last-child{border-bottom:none}
+.step-num{width:30px;height:30px;background:var(--gold);color:#000;font-family:'Syne',sans-serif;font-weight:700;font-size:12px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:3px}
+.step-title{font-family:'Syne',sans-serif;font-weight:600;font-size:14px;margin-bottom:5px}
+.step-desc{font-size:13px;color:var(--muted);line-height:1.7}
+.step-tools{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.tool-tag{background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:2px 9px;font-size:11px;color:var(--muted);font-family:'DM Mono',monospace}
+
+/* ── AUTO CARDS ── */
+.automation-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
+.auto-card{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:15px;transition:border .18s;cursor:pointer;text-decoration:none;display:block}
+.auto-card:hover{border-color:var(--gold-dim)}
+.auto-card-type{font-size:10px;color:var(--gold);font-family:'DM Mono',monospace;margin-bottom:7px;text-transform:uppercase;letter-spacing:.06em}
+.auto-card-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:4px}
+.auto-card-desc{font-size:12px;color:var(--muted);line-height:1.55}
+
+/* ── BRIEF ── */
+.brief-output{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:20px;margin-top:14px;max-height:500px;overflow-y:auto}
+.brief-platform-title{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:.06em;margin:16px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.brief-platform-title:first-child{margin-top:0}
+.brief-row{display:grid;grid-template-columns:130px 1fr;gap:8px;margin-bottom:7px;font-size:13px}
+.brief-key{color:var(--muted)}
+.brief-val{color:var(--text);line-height:1.55}
+.brief-summary{margin-top:16px;padding-top:16px;border-top:1px solid var(--border);font-size:13px;color:var(--muted);line-height:1.7}
+
+/* ── CLIENTS ── */
+.client-row{display:flex;align-items:center;justify-content:space-between;padding:13px 0;border-bottom:1px solid var(--border)}
+.client-row:last-child{border-bottom:none}
+.client-name{font-family:'Syne',sans-serif;font-size:14px;font-weight:600}
+.client-meta{font-size:12px;color:var(--muted);margin-top:2px}
+.badge{display:inline-block;padding:2px 9px;border-radius:20px;font-size:11px;font-weight:500}
+.badge.active{background:rgba(46,204,113,0.1);color:var(--green);border:1px solid rgba(46,204,113,0.2)}
+.badge.pending{background:rgba(201,168,76,0.1);color:var(--gold);border:1px solid var(--gold-dim)}
+.revenue-total{background:var(--gold-glow);border:1px solid var(--gold-dim);border-radius:8px;padding:14px 18px;font-size:13px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center}
+.revenue-total strong{font-family:'Syne',sans-serif;font-size:20px;color:var(--gold)}
+
+/* ── ALERT ── */
+.alert{padding:11px 15px;border-radius:8px;font-size:13px;margin-bottom:14px;display:none}
+.alert.show{display:block}
+.alert.success{background:rgba(46,204,113,0.08);border:1px solid rgba(46,204,113,0.2);color:var(--green)}
+.alert.error{background:rgba(231,76,60,0.08);border:1px solid rgba(231,76,60,0.2);color:var(--red)}
+
+/* ── PRICING ── */
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.price-card{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:20px;transition:border .2s}
+.price-card.featured{border-color:var(--gold-dim)}
+.price-label{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;margin-bottom:5px}
+.price-label.gold{color:var(--gold)}
+.price-amount{font-size:24px;font-family:'Syne',sans-serif;color:var(--gold);font-weight:800;margin:8px 0 14px;line-height:1}
+.price-amount small{font-size:11px;color:var(--muted);font-weight:400}
+.price-features{font-size:12px;color:var(--muted);line-height:1.9}
+
+/* ── MISC ── */
+.divider{height:1px;background:var(--border);margin:22px 0}
+.section-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px}
+.row-btns{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:22px}
+
+/* ── RESPONSIVE ── */
+@media(max-width:640px){
+  .form-grid,.pricing-grid{grid-template-columns:1fr}
+  .automation-grid{grid-template-columns:1fr}
+  .hero h1{font-size:32px}
+  .stat-row{grid-template-columns:1fr 1fr}
+  nav{padding:0 12px;gap:8px}
+  .nav-tabs{gap:0;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;flex-shrink:1;min-width:0}
+  .nav-tabs::-webkit-scrollbar{display:none}
+  .nav-tab{padding:6px 10px;font-size:11px;white-space:nowrap;flex-shrink:0}
+  .key-btn{font-size:10px;padding:4px 8px;white-space:nowrap;flex-shrink:0}
+  main{padding:24px 16px 50px}
+}
+</style>
+</head>
+<body>
+
+<!-- ── API KEY GATE ── -->
+<div id="key-gate">
+  <div class="gate-box">
+    <div class="gate-logo">ONYX<span> Digital</span></div>
+    <h2>Connect your AI</h2>
+    <p>Onyx uses Google Gemini AI to generate content and ad briefs. Get a <strong style="color:var(--gold)">100% free</strong> API key — no credit card needed.<br/><br/>
+    Go to <a href="https://aistudio.google.com/app/apikey" target="_blank">aistudio.google.com/app/apikey</a> → click <strong>Create API key</strong> → paste it below.</p>
+    <input type="password" class="gate-input" id="gate-key-input" placeholder="AIzaSy..."/>
+    <p class="gate-note">Your key is saved locally on your device only. It's never sent anywhere except directly to Google's API. Free tier: 1,500 requests/day — more than enough.</p>
+    <button class="btn" style="width:100%;justify-content:center" onclick="saveKey()">Save & Enter Onyx →</button>
+  </div>
+</div>
+
+<!-- ── NAV ── -->
+<nav>
+  <div class="logo">ONYX<span> Digital</span></div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showPage('home',this)">Home</button>
+    <button class="nav-tab" onclick="showPage('generate',this)">Generate</button>
+    <button class="nav-tab" onclick="showPage('optimize',this)">Optimize</button>
+    <button class="nav-tab" onclick="showPage('repurpose',this)">Repurpose</button>
+    <button class="nav-tab" onclick="showPage('algorithm',this)">Algorithm</button>
+    <button class="nav-tab" onclick="showPage('ads',this)">Ad Briefs</button>
+    <button class="nav-tab" onclick="showPage('clients',this)">Clients</button>
+    <button class="nav-tab" onclick="showPage('guide',this)">SOP</button>
+  </div>
+  <div class="nav-right">
+    <button class="key-btn" onclick="changeKey()" title="Change Gemini API key">⚙ AI Key</button>
+  </div>
+</nav>
+
+<main>
+
+<!-- ═══ HOME ═══ -->
+<div class="page active" id="page-home">
+  <div class="hero">
+    <div class="hero-eyebrow">Onyx Digital Platform — Internal Tool</div>
+    <h1>Grow Any Account.<br/><span>Without Creating Content.</span></h1>
+    <p>AI-powered social media growth. You run the service, Gemini AI does the heavy lifting.</p>
+    <div class="stat-row">
+      <div class="stat"><div class="stat-num" id="stat-clients">0</div><div class="stat-lbl">Active clients</div></div>
+      <div class="stat"><div class="stat-num" id="stat-posts">0</div><div class="stat-lbl">Posts generated</div></div>
+      <div class="stat"><div class="stat-num" id="stat-briefs">0</div><div class="stat-lbl">Ad briefs made</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">How Onyx works</div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">Sign the client</div>
+          <div class="step-desc">Collect niche, tone, platforms, and goals. No new content needed from them. Add them to your Clients tab.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">Generate 30 AI-optimised posts</div>
+          <div class="step-desc">Use the Generate tab. Claude writes viral hooks, captions, and hashtag sets tailored to their niche and audience.</div>
+          <div class="step-tools"><span class="tool-tag">Gemini AI</span><span class="tool-tag">Viral hooks</span><span class="tool-tag">Hashtag sets</span></div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">Auto-schedule across platforms</div>
+          <div class="step-desc">Export CSV → import to Buffer. Posts publish 4–5x per week at peak times automatically. You do nothing after setup.</div>
+          <div class="step-tools"><span class="tool-tag">Buffer</span><span class="tool-tag">Meta Suite</span><span class="tool-tag">Later</span></div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <div class="step-title">Run targeted paid ads</div>
+          <div class="step-desc">Use the Ad Briefs tab to generate campaign briefs for Google, Meta, and TikTok. Client funds the budget, you manage the campaigns and charge a management fee on top.</div>
+          <div class="step-tools"><span class="tool-tag">Google Ads</span><span class="tool-tag">Meta Ads</span><span class="tool-tag">TikTok Spark Ads</span></div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <div class="step-title">Send monthly report → renew</div>
+          <div class="step-desc">Generate a WhatsApp-ready report showing follower growth, reach, and engagement. Client sees results, renews payment.</div>
+          <div class="step-tools"><span class="tool-tag">Report Generator</span><span class="tool-tag">M-Pesa / Bank</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Automation tools — connect these</div>
+    <div class="automation-grid">
+      <a class="auto-card" href="https://buffer.com" target="_blank">
+        <div class="auto-card-type">Scheduling</div>
+        <div class="auto-card-title">Buffer</div>
+        <div class="auto-card-desc">Free plan. Connect all client platforms. Posts auto-publish at best times. Import CSV directly.</div>
+      </a>
+      <a class="auto-card" href="https://business.facebook.com" target="_blank">
+        <div class="auto-card-type">Scheduling + Ads</div>
+        <div class="auto-card-title">Meta Business Suite</div>
+        <div class="auto-card-desc">Free. Manage Instagram + Facebook. Run paid boosts. Client adds you as Editor — no password sharing.</div>
+      </a>
+      <a class="auto-card" href="https://ads.google.com" target="_blank">
+        <div class="auto-card-type">Paid Promotion</div>
+        <div class="auto-card-title">Google Ads</div>
+        <div class="auto-card-desc">Promote YouTube videos via TrueView in-stream ads. Push views to thousands at low cost.</div>
+      </a>
+      <a class="auto-card" href="https://ads.tiktok.com" target="_blank">
+        <div class="auto-card-type">Viral Trigger</div>
+        <div class="auto-card-title">TikTok Spark Ads</div>
+        <div class="auto-card-desc">Boost existing organic TikToks. Most powerful viral tool for short video. No new content needed.</div>
+      </a>
+      <a class="auto-card" href="https://trends.google.com" target="_blank">
+        <div class="auto-card-type">Trend Detection</div>
+        <div class="auto-card-title">Google Trends</div>
+        <div class="auto-card-desc">Find what's trending in client's niche right now. Inject into content briefs for algorithm boost.</div>
+      </a>
+      <a class="auto-card" href="https://ads.tiktok.com/business/creativecenter" target="_blank">
+        <div class="auto-card-type">Trend Detection</div>
+        <div class="auto-card-title">TikTok Creative Center</div>
+        <div class="auto-card-desc">Shows trending sounds, hashtags, and viral video styles weekly. Free tool.</div>
+      </a>
+      <a class="auto-card" href="https://later.com" target="_blank">
+        <div class="auto-card-type">Scheduling</div>
+        <div class="auto-card-title">Later</div>
+        <div class="auto-card-desc">Best visual calendar for Instagram. Drag-drop scheduling. Free plan available.</div>
+      </a>
+      <a class="auto-card" href="https://answerthepublic.com" target="_blank">
+        <div class="auto-card-type">Research</div>
+        <div class="auto-card-title">Answer The Public</div>
+        <div class="auto-card-desc">Questions people ask in any niche. Turns into viral content hooks for your AI generator.</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ OPTIMIZE ═══ -->
+<div class="page" id="page-optimize">
+
+  <div class="card">
+    <div class="card-title">Caption Optimizer — rewrite existing posts</div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.6">Paste a client's existing caption. AI rewrites it with a viral hook, stronger body, and clear CTA — then adds the best hashtags for their niche. Use this on their last 10–20 posts for an instant reach boost.</p>
+    <div class="form-grid">
+      <div class="field">
+        <label>Niche</label>
+        <input type="text" id="opt-niche" placeholder="e.g. gym, fitness, Nairobi"/>
+      </div>
+      <div class="field">
+        <label>Target audience</label>
+        <input type="text" id="opt-audience" placeholder="e.g. men 25–40 wanting to lose weight"/>
+      </div>
+      <div class="field">
+        <label>Brand tone</label>
+        <select id="opt-tone">
+          <option value="motivational">Motivational</option>
+          <option value="educational">Educational</option>
+          <option value="entertaining">Entertaining / Fun</option>
+          <option value="professional">Professional</option>
+          <option value="casual">Casual / Relatable</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Platform</label>
+        <select id="opt-platform">
+          <option value="Instagram">Instagram</option>
+          <option value="TikTok">TikTok</option>
+          <option value="Facebook">Facebook</option>
+          <option value="LinkedIn">LinkedIn</option>
+        </select>
+      </div>
+    </div>
+    <div class="field" style="margin-top:14px">
+      <label>Existing caption (paste it here)</label>
+      <textarea id="opt-caption" placeholder="Paste the client's existing caption here..."></textarea>
+    </div>
+    <div class="row-btns">
+      <button class="btn" onclick="optimizeCaption()">⚡ Rewrite caption</button>
+      <button class="btn ghost sm" id="opt-copy-btn" onclick="copyOptimized()" style="display:none">⎘ Copy</button>
+    </div>
+    <div class="loader" id="opt-loader"><div class="spinner"></div><span>Rewriting for maximum reach...</span></div>
+    <div class="alert" id="opt-alert"></div>
+    <div class="output-block" id="opt-output"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Profile Bio Optimizer</div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.6">A strong bio converts visitors to followers. Paste the client's current bio and get an AI-rewritten version with keywords, value proposition, and a follow-worthy CTA.</p>
+    <div class="form-grid">
+      <div class="field">
+        <label>Niche / what they do</label>
+        <input type="text" id="bio-niche" placeholder="e.g. personal trainer in Nairobi"/>
+      </div>
+      <div class="field">
+        <label>Main result they offer clients</label>
+        <input type="text" id="bio-result" placeholder="e.g. lose 10kg in 90 days"/>
+      </div>
+    </div>
+    <div class="field" style="margin-top:14px">
+      <label>Current bio (paste it here)</label>
+      <textarea id="bio-current" placeholder="e.g. Personal trainer | Nairobi | DM for bookings"></textarea>
+    </div>
+    <div class="row-btns">
+      <button class="btn" onclick="optimizeBio()">⚡ Rewrite bio</button>
+      <button class="btn ghost sm" id="bio-copy-btn" onclick="copyBio()" style="display:none">⎘ Copy</button>
+    </div>
+    <div class="loader" id="bio-loader"><div class="spinner"></div><span>Crafting a high-converting bio...</span></div>
+    <div class="alert" id="bio-alert"></div>
+    <div class="output-block" id="bio-output"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Engagement Script Generator</div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.6">Generate 20 genuine, value-adding comments to post on similar accounts in the client's niche. This pulls their audience to your client's page — the most powerful free growth method.</p>
+    <div class="form-grid">
+      <div class="field">
+        <label>Client niche</label>
+        <input type="text" id="eng-niche" placeholder="e.g. gym / fitness / weight loss"/>
+      </div>
+      <div class="field">
+        <label>Platform</label>
+        <select id="eng-platform">
+          <option value="Instagram">Instagram</option>
+          <option value="TikTok">TikTok</option>
+          <option value="Facebook">Facebook</option>
+        </select>
+      </div>
+    </div>
+    <div class="row-btns">
+      <button class="btn" onclick="generateEngagement()">⚡ Generate comment scripts</button>
+      <button class="btn ghost sm" id="eng-copy-btn" onclick="copyEngagement()" style="display:none">⎘ Copy all</button>
+    </div>
+    <div class="loader" id="eng-loader"><div class="spinner"></div><span>Writing engagement scripts...</span></div>
+    <div class="alert" id="eng-alert"></div>
+    <div class="output-block" id="eng-output"></div>
+  </div>
+
+</div>
+
+<!-- ═══ REPURPOSE ═══ -->
+<div class="page" id="page-repurpose">
+
+  <div class="card">
+    <div class="card-title">Cross-Platform Repurposer</div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.6">Client posted a video on Instagram? Turn it into optimized posts for TikTok, Facebook Reels, YouTube Shorts — all at once. Same video, 4 platforms, 4x the reach. No new filming needed.</p>
+    <div class="form-grid">
+      <div class="field">
+        <label>Client niche</label>
+        <input type="text" id="rep2-niche" placeholder="e.g. gym owner, fitness"/>
+      </div>
+      <div class="field">
+        <label>Target audience</label>
+        <input type="text" id="rep2-audience" placeholder="e.g. men 25–40 wanting to lose weight"/>
+      </div>
+    </div>
+    <div class="field" style="margin-top:14px">
+      <label>Describe the video (what happens in it)</label>
+      <textarea id="rep2-video" placeholder="e.g. A 60-second workout showing 5 exercises to lose belly fat. Client is demonstrating in their gym."></textarea>
+    </div>
+    <div class="field" style="margin-top:10px">
+      <label>Platforms to write for</label>
+      <div class="platform-grid" id="rep2-platforms">
+        <div class="plat-btn selected" onclick="togglePlat(this)">Instagram</div>
+        <div class="plat-btn selected" onclick="togglePlat(this)">TikTok</div>
+        <div class="plat-btn selected" onclick="togglePlat(this)">Facebook</div>
+        <div class="plat-btn" onclick="togglePlat(this)">YouTube Shorts</div>
+        <div class="plat-btn" onclick="togglePlat(this)">Twitter/X</div>
+        <div class="plat-btn" onclick="togglePlat(this)">LinkedIn</div>
+      </div>
+    </div>
+    <div class="row-btns">
+      <button class="btn" onclick="repurposeContent()">⚡ Generate all platform posts</button>
+      <button class="btn ghost sm" id="rep2-copy-btn" onclick="copyRepurposed()" style="display:none">⎘ Copy all</button>
+    </div>
+    <div class="loader" id="rep2-loader"><div class="spinner"></div><span>Optimizing for every platform...</span></div>
+    <div class="alert" id="rep2-alert"></div>
+    <div class="posts-grid" id="rep2-output"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Hashtag Set Generator</div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.6">Generate a researched, tiered hashtag set for any niche. Mix of mega, mid-size, and niche hashtags for maximum discovery.</p>
+    <div class="form-grid">
+      <div class="field">
+        <label>Niche / topic</label>
+        <input type="text" id="hash-niche" placeholder="e.g. gym Nairobi, fitness Kenya"/>
+      </div>
+      <div class="field">
+        <label>Platform</label>
+        <select id="hash-platform">
+          <option value="Instagram">Instagram</option>
+          <option value="TikTok">TikTok</option>
+          <option value="Facebook">Facebook</option>
+        </select>
+      </div>
+    </div>
+    <div class="row-btns">
+      <button class="btn" onclick="generateHashtags()">⚡ Generate hashtag sets</button>
+      <button class="btn ghost sm" id="hash-copy-btn" onclick="copyHashtags()" style="display:none">⎘ Copy</button>
+    </div>
+    <div class="loader" id="hash-loader"><div class="spinner"></div><span>Researching best hashtags...</span></div>
+    <div class="alert" id="hash-alert"></div>
+    <div class="output-block" id="hash-output"></div>
+  </div>
+
+</div>
+
+<!-- ═══ ALGORITHM ═══ -->
+<div class="page" id="page-algorithm">
+
+  <div class="card">
+    <div class="card-title">Hook Strength Tester</div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.6">The first line of a post determines if anyone reads the rest. Paste your opening line — AI scores it 1–10 on scroll-stop power and rewrites 3 stronger versions.</p>
+    <div class="form-grid">
+      <div class="field">
+        <label>Platform</label>
+        <select id="hook-platform">
+          <option>Instagram</option>
+          <option>TikTok</option>
+          <option>Facebook</option>
+          <option>YouTube Shorts</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Niche</label>
+        <input type="text" id="hook-niche" placeholder="e.g. gym, fitness, food"/>
+      </div>
+    </div>
+    <div class="field" style="margin-top:14px">
+      <label>Your opening line / hook</label>
+      <textarea id="hook-input" placeholder="e.g. Today I worked out for 30 minutes..."></textarea>
+    </div>
+    <div class="row-btns">
+      <button class="btn" onclick="testHook()">⚡ Score & rewrite hook</button>
+      <button class="btn ghost sm" id="hook-copy-btn" onclick="copyHook()" style="display:none">⎘ Copy</button>
+    </div>
+    <div class="loader" id="hook-loader"><div class="spinner"></div><span>Scoring your hook...</span></div>
+    <div class="alert" id="hook-alert"></div>
+    <div class="output-block" id="hook-output"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Algorithm Audit — Score any post</div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.6">Paste a client's existing post. AI audits it against each platform's algorithm signals — saves, shares, comments, watch time, CTA strength — gives an overall score and exact fixes.</p>
+    <div class="form-grid">
+      <div class="field">
+        <label>Platform</label>
+        <select id="audit-platform">
+          <option>Instagram</option>
+          <option>TikTok</option>
+          <option>Facebook</option>
+          <option>YouTube</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Niche</label>
+        <input type="text" id="audit-niche" placeholder="e.g. gym owner, fitness"/>
+      </div>
+    </div>
+    <div class="field" style="margin-top:14px">
+      <label>Paste the full post (caption + hashtags)</label>
+      <textarea id="audit-input" placeholder="Paste the client's post here..." style="min-height:120px"></textarea>
+    </div>
+    <div class="row-btns">
+      <button class="btn" onclick="auditPost()">⚡ Audit this post</button>
+      <button class="btn ghost sm" id="audit-copy-btn" onclick="copyAudit()" style="display:none">⎘ Copy report</button>
+    </div>
+    <div class="loader" id="audit-loader"><div class="spinner"></div><span>Running algorithm audit...</span></div>
+    <div class="alert" id="audit-alert"></div>
+    <div class="output-block" id="audit-output"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">7-Day Story Sequence Generator</div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.6">Stories posted daily keep the algorithm warm — the account appears at the front of followers' story bars consistently. AI writes a full 7-day story sequence that builds engagement and drives action.</p>
+    <div class="form-grid">
+      <div class="field">
+        <label>Client niche</label>
+        <input type="text" id="story-niche" placeholder="e.g. gym, personal trainer"/>
+      </div>
+      <div class="field">
+        <label>Goal this week</label>
+        <select id="story-goal">
+          <option value="grow followers">Grow followers</option>
+          <option value="drive bookings or sales">Drive bookings / sales</option>
+          <option value="increase engagement">Boost engagement</option>
+          <option value="build trust and authority">Build trust & authority</option>
+        </select>
+      </div>
+    </div>
+    <div class="row-btns">
+      <button class="btn" onclick="generateStories()">⚡ Generate 7-day story plan</button>
+      <button class="btn ghost sm" id="story-copy-btn" onclick="copyStories()" style="display:none">⎘ Copy</button>
+    </div>
+    <div class="loader" id="story-loader"><div class="spinner"></div><span>Planning your story sequence...</span></div>
+    <div class="alert" id="story-alert"></div>
+    <div class="output-block" id="story-output"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Optimal Posting Schedule</div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.6">Generate a custom posting schedule per platform based on the client's niche and audience location. The right timing alone increases reach by 30–50%.</p>
+    <div class="form-grid">
+      <div class="field">
+        <label>Client niche</label>
+        <input type="text" id="sched-niche" placeholder="e.g. gym, restaurant, fashion"/>
+      </div>
+      <div class="field">
+        <label>Audience location</label>
+        <input type="text" id="sched-location" placeholder="e.g. Nairobi, Kenya, East Africa"/>
+      </div>
+    </div>
+    <div class="field" style="margin-top:10px">
+      <label>Platforms</label>
+      <div class="platform-grid" id="sched-platforms">
+        <div class="plat-btn selected" onclick="togglePlat(this)">Instagram</div>
+        <div class="plat-btn selected" onclick="togglePlat(this)">TikTok</div>
+        <div class="plat-btn selected" onclick="togglePlat(this)">Facebook</div>
+        <div class="plat-btn" onclick="togglePlat(this)">YouTube</div>
+        <div class="plat-btn" onclick="togglePlat(this)">Twitter/X</div>
+      </div>
+    </div>
+    <div class="row-btns">
+      <button class="btn" onclick="generateSchedule()">⚡ Generate posting schedule</button>
+      <button class="btn ghost sm" id="sched-copy-btn" onclick="copySchedule()" style="display:none">⎘ Copy</button>
+    </div>
+    <div class="loader" id="sched-loader"><div class="spinner"></div><span>Building optimal schedule...</span></div>
+    <div class="alert" id="sched-alert"></div>
+    <div class="output-block" id="sched-output"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">DM Funnel Script Generator</div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.6">DMs convert followers into buyers. Generate a 3-message DM sequence to send when someone follows, comments, or reacts to a story — turning new followers into paying customers.</p>
+    <div class="form-grid">
+      <div class="field">
+        <label>Client niche</label>
+        <input type="text" id="dm-niche" placeholder="e.g. gym owner, fitness coach"/>
+      </div>
+      <div class="field">
+        <label>What they're selling</label>
+        <input type="text" id="dm-offer" placeholder="e.g. gym membership, personal training"/>
+      </div>
+      <div class="field">
+        <label>Trigger</label>
+        <select id="dm-trigger">
+          <option value="someone just followed">New follower</option>
+          <option value="someone commented on a post">Post commenter</option>
+          <option value="someone reacted to a story">Story reactor</option>
+          <option value="someone sent a general inquiry DM">General inquiry DM</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Tone</label>
+        <select id="dm-tone">
+          <option value="warm and friendly">Warm & friendly</option>
+          <option value="professional">Professional</option>
+          <option value="casual">Casual</option>
+        </select>
+      </div>
+    </div>
+    <div class="row-btns">
+      <button class="btn" onclick="generateDMFunnel()">⚡ Generate DM funnel</button>
+      <button class="btn ghost sm" id="dm-copy-btn" onclick="copyDM()" style="display:none">⎘ Copy</button>
+    </div>
+    <div class="loader" id="dm-loader"><div class="spinner"></div><span>Writing your DM funnel...</span></div>
+    <div class="alert" id="dm-alert"></div>
+    <div class="output-block" id="dm-output"></div>
+  </div>
+
+</div>
+
+<!-- ═══ GENERATE ═══ -->
+<div class="page" id="page-generate">
+  <div class="card">
+    <div class="card-title">Content generator</div>
+
+    <div class="form-grid">
+      <div class="field">
+        <label>Client name / brand</label>
+        <input type="text" id="gen-name" placeholder="e.g. FitLife Kenya"/>
+      </div>
+      <div class="field">
+        <label>Niche</label>
+        <input type="text" id="gen-niche" placeholder="e.g. fitness, personal finance, food"/>
+      </div>
+      <div class="field">
+        <label>Target audience</label>
+        <input type="text" id="gen-audience" placeholder="e.g. Kenyan women 25–40"/>
+      </div>
+      <div class="field">
+        <label>Brand tone</label>
+        <select id="gen-tone">
+          <option value="motivational">Motivational</option>
+          <option value="educational">Educational</option>
+          <option value="entertaining">Entertaining / Fun</option>
+          <option value="professional">Professional</option>
+          <option value="casual">Casual / Relatable</option>
+          <option value="inspirational">Inspirational</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Posts to generate</label>
+        <select id="gen-count">
+          <option value="10">10 posts</option>
+          <option value="20">20 posts</option>
+          <option value="30" selected>30 posts (recommended)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Content goal</label>
+        <select id="gen-goal">
+          <option value="grow followers">Grow followers</option>
+          <option value="boost engagement">Boost engagement</option>
+          <option value="drive sales">Drive sales</option>
+          <option value="build brand awareness">Brand awareness</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field" style="margin-top:14px">
+      <label>Platforms</label>
+      <div class="platform-grid" id="gen-platforms">
+        <div class="plat-btn" onclick="togglePlat(this)">Instagram</div>
+        <div class="plat-btn" onclick="togglePlat(this)">TikTok</div>
+        <div class="plat-btn" onclick="togglePlat(this)">Facebook</div>
+        <div class="plat-btn" onclick="togglePlat(this)">Twitter / X</div>
+        <div class="plat-btn" onclick="togglePlat(this)">YouTube</div>
+        <div class="plat-btn" onclick="togglePlat(this)">LinkedIn</div>
+      </div>
+    </div>
+
+    <div class="row-btns">
+      <button class="btn" id="gen-btn" onclick="generateContent()">⚡ Generate content</button>
+      <button class="btn outline sm" id="export-btn" onclick="exportCSV()" style="display:none">↓ Export CSV for Buffer</button>
+      <button class="btn ghost sm" id="copy-all-btn" onclick="copyAllPosts()" style="display:none">⎘ Copy all posts</button>
+    </div>
+
+    <div class="loader" id="gen-loader"><div class="spinner"></div><span id="gen-status">Generating viral content...</span></div>
+    <div class="progress-bar" id="gen-progress" style="display:none"><div class="progress-fill" id="gen-fill"></div></div>
+    <div class="alert" id="gen-alert"></div>
+    <div class="posts-grid" id="posts-output"></div>
+  </div>
+</div>
+
+<!-- ═══ AD BRIEFS ═══ -->
+<div class="page" id="page-ads">
+  <div class="card">
+    <div class="card-title">Ad campaign brief generator</div>
+
+    <div class="form-grid">
+      <div class="field">
+        <label>Client / brand</label>
+        <input type="text" id="ad-brand" placeholder="e.g. FitLife Kenya"/>
+      </div>
+      <div class="field">
+        <label>Niche</label>
+        <input type="text" id="ad-niche" placeholder="e.g. fitness supplements"/>
+      </div>
+      <div class="field">
+        <label>Monthly ad budget (KSH)</label>
+        <input type="number" id="ad-budget" placeholder="e.g. 5000" min="500"/>
+      </div>
+      <div class="field">
+        <label>Campaign goal</label>
+        <select id="ad-goal">
+          <option value="grow followers">Grow followers</option>
+          <option value="get video views">Get video views</option>
+          <option value="drive website traffic">Drive website traffic</option>
+          <option value="increase product sales">Product sales</option>
+          <option value="build brand awareness">Brand awareness</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Target country / region</label>
+        <input type="text" id="ad-region" placeholder="e.g. Kenya, East Africa, Global"/>
+      </div>
+      <div class="field">
+        <label>Target age / gender</label>
+        <input type="text" id="ad-demo" placeholder="e.g. 18–35, women"/>
+      </div>
+    </div>
+
+    <div class="field" style="margin-top:14px">
+      <label>Platforms to run ads on</label>
+      <div class="platform-grid" id="ad-platforms">
+        <div class="plat-btn" onclick="togglePlat(this)">Google Ads</div>
+        <div class="plat-btn" onclick="togglePlat(this)">Meta (Instagram/FB)</div>
+        <div class="plat-btn" onclick="togglePlat(this)">TikTok Ads</div>
+        <div class="plat-btn" onclick="togglePlat(this)">YouTube Ads</div>
+        <div class="plat-btn" onclick="togglePlat(this)">X / Twitter Ads</div>
+      </div>
+    </div>
+
+    <div class="row-btns">
+      <button class="btn" onclick="generateAdBrief()">⚡ Generate ad brief</button>
+      <button class="btn outline sm" id="ad-export-btn" onclick="exportAdBrief()" style="display:none">↓ Download brief</button>
+      <button class="btn ghost sm" id="ad-copy-btn" onclick="copyAdBrief()" style="display:none">⎘ Copy brief</button>
+    </div>
+
+    <div class="loader" id="ad-loader"><div class="spinner"></div><span>Building your ad campaign brief...</span></div>
+    <div class="alert" id="ad-alert"></div>
+    <div class="output-block" id="ad-output"></div>
+  </div>
+</div>
+
+<!-- ═══ CLIENTS ═══ -->
+<div class="page" id="page-clients">
+  <div class="card">
+    <div class="card-title">Add new client</div>
+    <div class="form-grid">
+      <div class="field">
+        <label>Client name / brand</label>
+        <input type="text" id="cl-name" placeholder="Brand name"/>
+      </div>
+      <div class="field">
+        <label>Contact (phone / email)</label>
+        <input type="text" id="cl-contact" placeholder="0700 000 000"/>
+      </div>
+      <div class="field">
+        <label>Niche</label>
+        <input type="text" id="cl-niche" placeholder="e.g. food blogging"/>
+      </div>
+      <div class="field">
+        <label>Package</label>
+        <select id="cl-package">
+          <option value="Starter|5000">Starter — KSH 5,000/mo</option>
+          <option value="Growth|10000">Growth — KSH 10,000/mo</option>
+          <option value="Pro|18000">Pro — KSH 18,000/mo</option>
+        </select>
+      </div>
+    </div>
+    <div style="margin-top:18px">
+      <button class="btn" onclick="addClient()">+ Add client</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Client roster</div>
+    <div id="revenue-display" style="display:none" class="revenue-total">
+      <span style="color:var(--muted);font-size:13px">Monthly recurring revenue</span>
+      <strong id="revenue-amount">KSH 0</strong>
+    </div>
+    <div id="client-list"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Pricing packages</div>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-label">Starter</div>
+        <div class="price-amount">KSH 5K<small>/mo</small></div>
+        <div class="price-features">1 platform<br/>12 posts/month<br/>Basic report<br/>Buffer scheduling</div>
+      </div>
+      <div class="price-card featured">
+        <div class="price-label gold">Growth ★</div>
+        <div class="price-amount">KSH 10K<small>/mo</small></div>
+        <div class="price-features">2 platforms<br/>20 posts/month<br/>Ad brief included<br/>Detailed report</div>
+      </div>
+      <div class="price-card">
+        <div class="price-label">Pro</div>
+        <div class="price-amount">KSH 18K<small>/mo</small></div>
+        <div class="price-features">3 platforms<br/>30 posts/month<br/>Ad management<br/>Strategy call</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SOP GUIDE ═══ -->
+<div class="page" id="page-guide">
+  <div class="card">
+    <div class="card-title">Standard operating procedure</div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">Sign the client</div>
+          <div class="step-desc">Agree on package. Get WhatsApp or email confirmation. Collect: brand name, niche, tone, target audience, all platform handles, and whether they have an ad budget. Create a shared WhatsApp group for updates.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">Get access to their accounts (safely)</div>
+          <div class="step-desc">Instagram/Facebook: ask them to add you as an Editor in Meta Business Suite — they never share their password. TikTok: use TikTok Business Center and request collaborator access. YouTube: they add you as Manager in YouTube Studio.</div>
+          <div class="step-tools"><span class="tool-tag">Meta Business Suite</span><span class="tool-tag">TikTok Business Center</span><span class="tool-tag">YouTube Studio</span></div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">Generate content — use the Generate tab</div>
+          <div class="step-desc">Fill in client niche, tone, audience, platforms, and goal. Click Generate. Gemini AI writes 30 posts with viral hooks and hashtags. Download the CSV and import into Buffer for auto-scheduling.</div>
+          <div class="step-tools"><span class="tool-tag">Onyx Generate tab</span><span class="tool-tag">Buffer CSV import</span></div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <div class="step-title">Schedule posts in Buffer</div>
+          <div class="step-desc">Go to buffer.com → Import CSV → Connect client's platforms → Set posting schedule: Mon / Wed / Fri / Sat at 7AM, 12PM, 7PM EAT (peak engagement). Buffer posts automatically. You check once a week — takes 15 minutes.</div>
+          <div class="step-tools"><span class="tool-tag">buffer.com</span></div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <div class="step-title">Set up paid ads (if client has budget)</div>
+          <div class="step-desc">Use the Ad Briefs tab to generate the campaign strategy. Go to Meta Ads Manager or TikTok Ads Manager. Build the campaign using the brief. For TikTok: use Spark Ads to boost existing posts. For Instagram: boost the best-performing post each week. You charge 15% of ad spend as your management fee.</div>
+          <div class="step-tools"><span class="tool-tag">Meta Ads Manager</span><span class="tool-tag">TikTok Spark Ads</span><span class="tool-tag">Google Ads</span></div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">6</div>
+        <div class="step-body">
+          <div class="step-title">Monitor weekly (15 minutes per client)</div>
+          <div class="step-desc">Check Buffer to confirm posts went out. Open Meta Business Suite insights → note reach and engagement numbers. Pause any ad spending with zero results. Screenshot the best performing post of the week.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">7</div>
+        <div class="step-body">
+          <div class="step-title">Send monthly report</div>
+          <div class="step-desc">Download follower count, reach, and engagement from each platform. Use the Report Generator below. Send via WhatsApp or email. Include best 3 posts, total follower growth, and a plan for next month.</div>
+          <div class="step-tools"><span class="tool-tag">Report Generator (below)</span></div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">8</div>
+        <div class="step-body">
+          <div class="step-title">Collect renewal payment</div>
+          <div class="step-desc">3 days before month-end, send via WhatsApp: "Hi [name], your Onyx report is ready. You gained [X] followers this month. Renewing for next month?" Collect payment via M-Pesa or bank transfer before starting the next month's content.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Monthly report generator</div>
+    <div class="form-grid">
+      <div class="field">
+        <label>Client name</label>
+        <input type="text" id="rep-client" placeholder="Brand name"/>
+      </div>
+      <div class="field">
+        <label>Month</label>
+        <input type="text" id="rep-month" placeholder="e.g. March 2025"/>
+      </div>
+      <div class="field">
+        <label>Followers — start of month</label>
+        <input type="number" id="rep-start" placeholder="e.g. 540"/>
+      </div>
+      <div class="field">
+        <label>Followers — end of month</label>
+        <input type="number" id="rep-end" placeholder="e.g. 830"/>
+      </div>
+      <div class="field">
+        <label>Total reach (from analytics)</label>
+        <input type="text" id="rep-reach" placeholder="e.g. 42,000"/>
+      </div>
+      <div class="field">
+        <label>Best performing post topic</label>
+        <input type="text" id="rep-post" placeholder="e.g. morning workout routine"/>
+      </div>
+    </div>
+    <div class="row-btns">
+      <button class="btn" onclick="generateReport()">⚡ Generate report text</button>
+      <button class="btn ghost sm" id="rep-copy-btn" onclick="copyReport()" style="display:none">⎘ Copy for WhatsApp</button>
+    </div>
+    <div class="loader" id="rep-loader"><div class="spinner"></div><span>Writing your client report...</span></div>
+    <div class="output-block" id="rep-output"></div>
+  </div>
+</div>
+
+</main>
+
+<script>
+// ── STATE ──
+let apiKey = localStorage.getItem("onyx_api_key") || "";
+let generatedPosts = [];
+let adBriefText = "";
+let reportText = "";
+let clients = JSON.parse(localStorage.getItem("onyx_clients") || "[]");
+let stats = JSON.parse(localStorage.getItem("onyx_stats") || '{"posts":0,"briefs":0}');
+
+// ── BOOT ──
+(function init() {
+  if (!apiKey) {
+    document.getElementById("key-gate").classList.remove("hidden");
+  } else {
+    document.getElementById("key-gate").classList.add("hidden");
+  }
+  renderClients();
+  updateStats();
+})();
+
+// ── KEY GATE ──
+function saveKey() {
+  const k = document.getElementById("gate-key-input").value.trim();
+  if (!k.startsWith("AIza")) {
+    alert("That doesn't look like a valid Gemini key. It should start with AIza...\n\nGet a free key at: aistudio.google.com/app/apikey");
+    return;
+  }
+  apiKey = k;
+  localStorage.setItem("onyx_api_key", k);
+  document.getElementById("key-gate").classList.add("hidden");
+}
+
+function changeKey() {
+  const newKey = prompt("Paste your Gemini API key (free at aistudio.google.com):");
+  if (newKey && newKey.startsWith("AIza")) {
+    apiKey = newKey;
+    localStorage.setItem("onyx_api_key", newKey);
+    alert("API key updated.");
+  } else if (newKey) {
+    alert("That doesn't look like a valid Gemini key. It should start with AIza...");
+  }
+}
+
+// ── NAV ──
+function showPage(id, tabEl) {
+  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+  document.querySelectorAll(".nav-tab").forEach(t => t.classList.remove("active"));
+  document.getElementById("page-" + id).classList.add("active");
+  if (tabEl) tabEl.classList.add("active");
+  if (id === "home") updateStats();
+}
+
+// ── HELPERS ──
+function togglePlat(el) { el.classList.toggle("selected"); }
+
+function getSelectedPlats(containerId) {
+  return Array.from(document.getElementById(containerId).querySelectorAll(".plat-btn.selected"))
+    .map(b => b.textContent).join(", ");
+}
+
+function showAlert(id, msg, type) {
+  const el = document.getElementById(id);
+  el.textContent = msg;
+  el.className = "alert show " + type;
+  setTimeout(() => el.classList.remove("show"), 6000);
+}
+
+function updateStats() {
+  document.getElementById("stat-clients").textContent = clients.filter(c => c.status === "active").length;
+  document.getElementById("stat-posts").textContent = stats.posts;
+  document.getElementById("stat-briefs").textContent = stats.briefs;
+}
+
+function copyText(text, btn) {
+  navigator.clipboard.writeText(text).then(() => {
+    const orig = btn.textContent;
+    btn.textContent = "✓ Copied!";
+    btn.classList.add("copied");
+    setTimeout(() => { btn.textContent = orig; btn.classList.remove("copied"); }, 2000);
+  });
+}
+
+// ── GEMINI API (FREE) ──
+async function callClaude(prompt, maxTokens = 4000) {
+  if (!apiKey) {
+    document.getElementById("key-gate").classList.remove("hidden");
+    throw new Error("No API key set.");
+  }
+  const res = await fetch(
+    `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: prompt }] }],
+        generationConfig: { maxOutputTokens: maxTokens, temperature: 0.85 }
+      })
+    }
+  );
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    const msg = err?.error?.message || "API error " + res.status;
+    if (res.status === 400) throw new Error("Invalid API key. Click ⚙ AI Key in the top right to update it.");
+    if (res.status === 429) throw new Error("Rate limit hit. Wait 30 seconds and try again.");
+    throw new Error(msg);
+  }
+  const data = await res.json();
+  return data.candidates[0].content.parts[0].text;
+}
+
+// ── CONTENT GENERATOR ──
+async function generateContent() {
+  const name = document.getElementById("gen-name").value.trim();
+  const niche = document.getElementById("gen-niche").value.trim();
+  const audience = document.getElementById("gen-audience").value.trim();
+  const tone = document.getElementById("gen-tone").value;
+  const count = parseInt(document.getElementById("gen-count").value);
+  const goal = document.getElementById("gen-goal").value;
+  const platforms = getSelectedPlats("gen-platforms");
+
+  if (!niche || !audience) {
+    showAlert("gen-alert", "Please fill in at least Niche and Target Audience.", "error");
+    return;
+  }
+
+  const btn = document.getElementById("gen-btn");
+  const loader = document.getElementById("gen-loader");
+  const progress = document.getElementById("gen-progress");
+  const fill = document.getElementById("gen-fill");
+  const statusEl = document.getElementById("gen-status");
+
+  btn.disabled = true;
+  loader.classList.add("show");
+  progress.style.display = "block";
+  document.getElementById("posts-output").innerHTML = "";
+  document.getElementById("export-btn").style.display = "none";
+  document.getElementById("copy-all-btn").style.display = "none";
+  generatedPosts = [];
+
+  const messages = [
+    "Briefing the AI strategist...",
+    "Writing viral hooks...",
+    "Crafting captions...",
+    "Building hashtag sets...",
+    "Finishing up..."
+  ];
+  let msgIdx = 0;
+  let pct = 0;
+  const prog = setInterval(() => {
+    pct = Math.min(pct + 1.2, 88);
+    fill.style.width = pct + "%";
+    if (pct > msgIdx * 20 && msgIdx < messages.length) {
+      statusEl.textContent = messages[msgIdx++];
+    }
+  }, 220);
+
+  try {
+    const prompt = `You are a senior social media strategist for Onyx Digital Platform, a professional growth agency.
+
+Generate exactly ${count} social media posts for:
+- Brand: ${name || "the client"}
+- Niche: ${niche}
+- Target audience: ${audience}
+- Tone: ${tone}
+- Goal: ${goal}
+- Platforms: ${platforms || "Instagram, TikTok, Facebook"}
+
+Return ONLY a valid JSON array. No markdown, no explanation, no code blocks. Just the raw JSON.
+
+Each object must have exactly these fields:
+- "type": one of "Reel", "Carousel", "Static", "Story", "Video"
+- "caption": full caption 80-150 words. First sentence must be a scroll-stopping hook. End with a clear CTA.
+- "hashtags": string of 15 hashtags with # symbols, space-separated
+
+Vary the post types and topics. Make each one genuinely different. Optimize for the platforms listed.
+
+Example format:
+[{"type":"Reel","caption":"...","hashtags":"#fitness #kenya ..."},{"type":"Carousel","caption":"...","hashtags":"..."}]`;
+
+    const result = await callClaude(prompt, 6000);
+    clearInterval(prog);
+    fill.style.width = "100%";
+
+    // Parse JSON response
+    let posts = [];
+    try {
+      // Strip any accidental markdown fences
+      const clean = result.replace(/```json|```/gi, "").trim();
+      posts = JSON.parse(clean);
+    } catch(e) {
+      // Fallback: try to extract JSON array from the response
+      const match = result.match(/\[[\s\S]*\]/);
+      if (match) {
+        try { posts = JSON.parse(match[0]); } catch(e2) {}
+      }
+    }
+
+    if (!posts.length) {
+      throw new Error("Could not parse the AI response. Try again — this sometimes happens on the first attempt.");
+    }
+
+    const container = document.getElementById("posts-output");
+    container.innerHTML = "";
+    generatedPosts = [];
+
+    posts.forEach((p, i) => {
+      if (!p.caption) return;
+      const post = { num: i + 1, type: p.type || "Post", caption: p.caption, hashtags: p.hashtags || "" };
+      generatedPosts.push(post);
+
+      const div = document.createElement("div");
+      div.className = "post-item";
+      div.innerHTML = `
+        <div class="post-header">
+          <div class="post-num">Post ${i + 1}</div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="post-type-badge">${post.type}</span>
+            <button class="copy-btn" onclick="copyPost(${i}, this)">Copy</button>
+          </div>
+        </div>
+        <div class="post-caption">${post.caption}</div>
+        <div class="post-hashtags">${post.hashtags}</div>`;
+      container.appendChild(div);
+    });
+
+    stats.posts += generatedPosts.length;
+    localStorage.setItem("onyx_stats", JSON.stringify(stats));
+    document.getElementById("export-btn").style.display = "inline-flex";
+    document.getElementById("copy-all-btn").style.display = "inline-flex";
+    setTimeout(() => { progress.style.display = "none"; fill.style.width = "0%"; }, 800);
+
+  } catch(e) {
+    clearInterval(prog);
+    showAlert("gen-alert", e.message, "error");
+    progress.style.display = "none";
+  }
+
+  loader.classList.remove("show");
+  btn.disabled = false;
+}
+
+function copyPost(idx, btn) {
+  const p = generatedPosts[idx];
+  if (!p) return;
+  copyText(`${p.caption}\n\n${p.hashtags}`, btn);
+}
+
+function copyAllPosts() {
+  const all = generatedPosts.map((p, i) => `POST ${i + 1} — ${p.type}\n${p.caption}\n${p.hashtags}`).join("\n\n---\n\n");
+  navigator.clipboard.writeText(all).then(() => {
+    const btn = document.getElementById("copy-all-btn");
+    const orig = btn.textContent;
+    btn.textContent = "✓ All copied!";
+    setTimeout(() => btn.textContent = orig, 2000);
+  });
+}
+
+function exportCSV() {
+  if (!generatedPosts.length) return;
+  const rows = [["Post #", "Type", "Caption", "Hashtags"]];
+  generatedPosts.forEach(p => rows.push([p.num, p.type, `"${p.caption.replace(/"/g,'""')}"`, p.hashtags]));
+  const csv = rows.map(r => r.join(",")).join("\n");
+  const a = document.createElement("a");
+  a.href = "data:text/csv;charset=utf-8," + encodeURIComponent(csv);
+  a.download = "onyx_content_calendar.csv";
+  a.click();
+}
+
+// ── AD BRIEFS ──
+async function generateAdBrief() {
+  const brand = document.getElementById("ad-brand").value.trim();
+  const niche = document.getElementById("ad-niche").value.trim();
+  const budget = document.getElementById("ad-budget").value;
+  const goal = document.getElementById("ad-goal").value;
+  const region = document.getElementById("ad-region").value.trim();
+  const demo = document.getElementById("ad-demo").value.trim();
+  const platforms = getSelectedPlats("ad-platforms");
+
+  if (!niche || !budget) {
+    showAlert("ad-alert", "Please fill in Niche and Ad Budget.", "error");
+    return;
+  }
+
+  const loader = document.getElementById("ad-loader");
+  loader.classList.add("show");
+  document.getElementById("ad-output").textContent = "";
+  document.getElementById("ad-export-btn").style.display = "none";
+  document.getElementById("ad-copy-btn").style.display = "none";
+
+  try {
+    const prompt = `You are a paid advertising specialist for Onyx Digital Platform, a social media growth agency.
+
+Create a detailed ad campaign brief for:
+- Brand: ${brand || "the client"}
+- Niche: ${niche}
+- Monthly budget: KSH ${budget}
+- Campaign goal: ${goal}
+- Target region: ${region || "Kenya"}
+- Demographics: ${demo || "18-35 adults"}
+- Platforms: ${platforms || "Meta (Instagram/FB), TikTok Ads"}
+
+For EACH platform selected, provide:
+1. Ad format to use
+2. Daily budget in KSH (split the total budget)
+3. Targeting: age, interests, location
+4. Ad headline (max 30 characters)
+5. Ad body text (2-3 sentences)
+6. Call to action button
+7. Best times to run
+8. Realistic expected results for this budget
+
+End with 3-bullet overall strategy summary.
+Be specific with KSH numbers. Format clearly with a header for each platform.`;
+
+    adBriefText = await callClaude(prompt);
+    document.getElementById("ad-output").textContent = adBriefText;
+    document.getElementById("ad-export-btn").style.display = "inline-flex";
+    document.getElementById("ad-copy-btn").style.display = "inline-flex";
+    stats.briefs++;
+    localStorage.setItem("onyx_stats", JSON.stringify(stats));
+  } catch(e) {
+    showAlert("ad-alert", e.message, "error");
+  }
+
+  loader.classList.remove("show");
+}
+
+function exportAdBrief() {
+  if (!adBriefText) return;
+  const a = document.createElement("a");
+  a.href = "data:text/plain;charset=utf-8," + encodeURIComponent(adBriefText);
+  a.download = "onyx_ad_brief.txt";
+  a.click();
+}
+
+function copyAdBrief() {
+  if (!adBriefText) return;
+  const btn = document.getElementById("ad-copy-btn");
+  copyText(adBriefText, btn);
+}
+
+// ── CLIENTS ──
+function addClient() {
+  const name = document.getElementById("cl-name").value.trim();
+  const contact = document.getElementById("cl-contact").value.trim();
+  const niche = document.getElementById("cl-niche").value.trim();
+  const pkgRaw = document.getElementById("cl-package").value;
+  if (!name) { alert("Enter a client name."); return; }
+
+  const [pkg, fee] = pkgRaw.split("|");
+  const client = {
+    name, contact, niche, pkg,
+    fee: parseInt(fee),
+    date: new Date().toLocaleDateString("en-KE"),
+    status: "active"
+  };
+  clients.push(client);
+  localStorage.setItem("onyx_clients", JSON.stringify(clients));
+  renderClients();
+  document.getElementById("cl-name").value = "";
+  document.getElementById("cl-contact").value = "";
+  document.getElementById("cl-niche").value = "";
+}
+
+function renderClients() {
+  const list = document.getElementById("client-list");
+  const revDisplay = document.getElementById("revenue-display");
+
+  if (!clients.length) {
+    list.innerHTML = '<div style="color:var(--muted);font-size:13px;padding:20px 0;text-align:center">No clients yet. Add your first one above.</div>';
+    revDisplay.style.display = "none";
+    return;
+  }
+
+  const total = clients.filter(c => c.status === "active").reduce((s, c) => s + (c.fee || 0), 0);
+  document.getElementById("revenue-amount").textContent = "KSH " + total.toLocaleString();
+  revDisplay.style.display = "flex";
+
+  list.innerHTML = clients.map((c, i) => `
+    <div class="client-row">
+      <div>
+        <div class="client-name">${c.name}</div>
+        <div class="client-meta">${c.niche ? c.niche + " · " : ""}${c.contact ? c.contact + " · " : ""}Added ${c.date}</div>
+        <div class="client-meta" style="margin-top:3px;color:var(--gold)">${c.pkg} · KSH ${(c.fee||0).toLocaleString()}/mo</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span class="badge ${c.status}">${c.status}</span>
+        <button class="btn ghost sm" onclick="toggleStatus(${i})">${c.status === "active" ? "Pause" : "Activate"}</button>
+        <button class="btn ghost sm" onclick="removeClient(${i})" style="color:var(--red)">✕</button>
+      </div>
+    </div>`).join("");
+
+  updateStats();
+}
+
+function toggleStatus(i) {
+  clients[i].status = clients[i].status === "active" ? "pending" : "active";
+  localStorage.setItem("onyx_clients", JSON.stringify(clients));
+  renderClients();
+}
+
+function removeClient(i) {
+  if (!confirm(`Remove ${clients[i].name}?`)) return;
+  clients.splice(i, 1);
+  localStorage.setItem("onyx_clients", JSON.stringify(clients));
+  renderClients();
+}
+
+// ── REPORT ──
+async function generateReport() {
+  const client = document.getElementById("rep-client").value.trim();
+  const month = document.getElementById("rep-month").value.trim();
+  const start = parseInt(document.getElementById("rep-start").value);
+  const end = parseInt(document.getElementById("rep-end").value);
+  const reach = document.getElementById("rep-reach").value.trim();
+  const post = document.getElementById("rep-post").value.trim();
+
+  if (!client || !start || !end) {
+    alert("Fill in client name, start followers, and end followers.");
+    return;
+  }
+
+  const loader = document.getElementById("rep-loader");
+  loader.classList.add("show");
+  document.getElementById("rep-output").textContent = "";
+  document.getElementById("rep-copy-btn").style.display = "none";
+
+  try {
+    const growth = end - start;
+    const pct = ((growth / start) * 100).toFixed(1);
+
+    const prompt = `Write a short, warm, professional monthly growth report for a social media client. Under 200 words.
+
+Client: ${client}
+Month: ${month || "this month"}
+Followers start: ${start}
+Followers end: ${end} (+${growth}, +${pct}%)
+Total reach: ${reach || "not tracked"}
+Best performing post: "${post || "not specified"}"
+
+Format:
+- Opening line celebrating the growth number (make it sound exciting)
+- 3 bullet points of what worked this month
+- 1 sentence on what we focus on next month
+- Closing line encouraging renewal
+
+Write as Onyx Digital Platform sending this to the client via WhatsApp. Keep it human and warm, not robotic.`;
+
+    reportText = await callClaude(prompt, 1000);
+    document.getElementById("rep-output").textContent = reportText;
+    document.getElementById("rep-copy-btn").style.display = "inline-flex";
+  } catch(e) {
+    document.getElementById("rep-output").textContent = "Error: " + e.message;
+  }
+
+  loader.classList.remove("show");
+}
+
+function copyReport() {
+  if (!reportText) return;
+  copyText(reportText, document.getElementById("rep-copy-btn"));
+}
+
+
+// ── CAPTION OPTIMIZER ──
+let optimizedText = "";
+async function optimizeCaption() {
+  const niche = document.getElementById("opt-niche").value.trim();
+  const audience = document.getElementById("opt-audience").value.trim();
+  const tone = document.getElementById("opt-tone").value;
+  const platform = document.getElementById("opt-platform").value;
+  const caption = document.getElementById("opt-caption").value.trim();
+  if (!caption || !niche) { showAlert("opt-alert","Fill in niche and paste the existing caption.","error"); return; }
+  const loader = document.getElementById("opt-loader");
+  loader.classList.add("show");
+  document.getElementById("opt-output").textContent = "";
+  document.getElementById("opt-copy-btn").style.display = "none";
+  try {
+    const prompt = `You are a senior social media growth strategist. Rewrite this ${platform} caption to dramatically increase reach and engagement.
+
+Client niche: ${niche}
+Target audience: ${audience || "general audience"}
+Tone: ${tone}
+
+ORIGINAL CAPTION:
+${caption}
+
+Rewrite it with:
+1. A scroll-stopping first line (hook) — must make people stop scrolling
+2. A valuable or relatable body (2–4 sentences)
+3. A strong CTA at the end (follow, comment, DM, save, share)
+4. 15–20 optimized hashtags (mix of popular and niche-specific)
+
+Format your response as:
+REWRITTEN CAPTION:
+[the rewritten caption]
+
+HASHTAGS:
+[hashtag line]
+
+Keep the same topic as the original but make it 3–5x more engaging.`;
+    optimizedText = await callClaude(prompt, 1000);
+    document.getElementById("opt-output").textContent = optimizedText;
+    document.getElementById("opt-copy-btn").style.display = "inline-flex";
+  } catch(e) { showAlert("opt-alert", e.message, "error"); }
+  loader.classList.remove("show");
+}
+function copyOptimized() { copyText(optimizedText, document.getElementById("opt-copy-btn")); }
+
+// ── BIO OPTIMIZER ──
+let bioText = "";
+async function optimizeBio() {
+  const niche = document.getElementById("bio-niche").value.trim();
+  const result = document.getElementById("bio-result").value.trim();
+  const current = document.getElementById("bio-current").value.trim();
+  if (!niche) { showAlert("bio-alert","Fill in the niche field.","error"); return; }
+  const loader = document.getElementById("bio-loader");
+  loader.classList.add("show");
+  document.getElementById("bio-output").textContent = "";
+  document.getElementById("bio-copy-btn").style.display = "none";
+  try {
+    const prompt = `Rewrite this Instagram/social media bio to convert more profile visitors into followers and customers.
+
+What they do: ${niche}
+Main result/offer: ${result || "not specified"}
+Current bio: ${current || "no bio yet"}
+
+Write 3 versions:
+VERSION A — Keyword-rich (good for search discovery)
+VERSION B — Results-focused (shows what client gets)
+VERSION C — Personality-driven (relatable and human)
+
+Each must be under 150 characters. Include relevant emoji and a CTA (e.g. "↓ Book free call" or "DM TRAIN to start").`;
+    bioText = await callClaude(prompt, 800);
+    document.getElementById("bio-output").textContent = bioText;
+    document.getElementById("bio-copy-btn").style.display = "inline-flex";
+  } catch(e) { showAlert("bio-alert", e.message, "error"); }
+  loader.classList.remove("show");
+}
+function copyBio() { copyText(bioText, document.getElementById("bio-copy-btn")); }
+
+// ── ENGAGEMENT SCRIPTS ──
+let engText = "";
+async function generateEngagement() {
+  const niche = document.getElementById("eng-niche").value.trim();
+  const platform = document.getElementById("eng-platform").value;
+  if (!niche) { showAlert("eng-alert","Enter the client niche.","error"); return; }
+  const loader = document.getElementById("eng-loader");
+  loader.classList.add("show");
+  document.getElementById("eng-output").textContent = "";
+  document.getElementById("eng-copy-btn").style.display = "none";
+  try {
+    const prompt = `Generate 20 genuine, value-adding comments to post on other ${platform} accounts in the "${niche}" niche.
+
+Goal: When we comment on similar accounts, their followers see our comment, get curious, and visit our client's profile.
+
+Rules:
+- Never say "nice post" or "great content" — these get ignored
+- Add genuine value: answer a question, share a tip, relate to the topic
+- Be conversational and human
+- End some with a subtle question to spark replies
+- Comments should be 1–3 sentences max
+
+Format: Number each comment 1–20. Group them into 4 categories:
+- TIPS & VALUE (5 comments)
+- RELATABLE / STORY (5 comments)
+- QUESTIONS (5 comments)
+- ENCOURAGEMENT (5 comments)`;
+    engText = await callClaude(prompt, 1200);
+    document.getElementById("eng-output").textContent = engText;
+    document.getElementById("eng-copy-btn").style.display = "inline-flex";
+  } catch(e) { showAlert("eng-alert", e.message, "error"); }
+  loader.classList.remove("show");
+}
+function copyEngagement() { copyText(engText, document.getElementById("eng-copy-btn")); }
+
+// ── CROSS-PLATFORM REPURPOSER ──
+let repurposedPosts = [];
+let repurposedText = "";
+async function repurposeContent() {
+  const niche = document.getElementById("rep2-niche").value.trim();
+  const audience = document.getElementById("rep2-audience").value.trim();
+  const video = document.getElementById("rep2-video").value.trim();
+  const platforms = getSelectedPlats("rep2-platforms");
+  if (!video || !niche) { showAlert("rep2-alert","Fill in niche and describe the video.","error"); return; }
+  const loader = document.getElementById("rep2-loader");
+  loader.classList.add("show");
+  document.getElementById("rep2-output").innerHTML = "";
+  document.getElementById("rep2-copy-btn").style.display = "none";
+  repurposedPosts = [];
+  try {
+    const prompt = `You are a cross-platform social media strategist. Take this one video and write optimized posts for each platform listed.
+
+Video description: ${video}
+Niche: ${niche}
+Target audience: ${audience || "general audience"}
+Platforms needed: ${platforms || "Instagram, TikTok, Facebook"}
+
+For EACH platform write a unique, platform-optimized post. Return ONLY valid JSON array, no markdown, no explanation.
+
+Each object:
+- "platform": platform name
+- "caption": optimized caption for that platform with hook + body + CTA (50–150 words)
+- "hashtags": hashtag string with # symbols (platform-appropriate count)
+- "tip": one short tip for posting on this platform (e.g. "Post between 7–9pm EAT for best reach")
+
+JSON format: [{"platform":"Instagram","caption":"...","hashtags":"...","tip":"..."},...]`;
+    const result = await callClaude(prompt, 3000);
+    const clean = result.replace(/```json|```/gi, "").trim();
+    let posts = [];
+    try { posts = JSON.parse(clean); } catch(e) {
+      const match = clean.match(/\[[\s\S]*\]/);
+      if (match) try { posts = JSON.parse(match[0]); } catch(e2) {}
+    }
+    if (!posts.length) throw new Error("Could not parse response. Try again.");
+    const container = document.getElementById("rep2-output");
+    container.innerHTML = "";
+    repurposedPosts = posts;
+    repurposedText = posts.map(p => `=== ${p.platform.toUpperCase()} ===\n${p.caption}\n\n${p.hashtags}\n\nTIP: ${p.tip}`).join("\n\n---\n\n");
+    posts.forEach((p, i) => {
+      const div = document.createElement("div");
+      div.className = "post-item";
+      const fullText = `${p.caption}\n\n${p.hashtags}`;
+      div.innerHTML = `
+        <button class="copy-btn" onclick="copyPostItem(this,'${btoa(unescape(encodeURIComponent(fullText)))}')">Copy</button>
+        <div class="post-header">
+          <span class="post-num">${p.platform}</span>
+          <span class="post-type-badge">💡 ${p.tip}</span>
+        </div>
+        <div class="post-caption">${p.caption}</div>
+        <div class="post-hashtags">${p.hashtags}</div>`;
+      container.appendChild(div);
+    });
+    document.getElementById("rep2-copy-btn").style.display = "inline-flex";
+    stats.briefs++;
+    localStorage.setItem("onyx_stats", JSON.stringify(stats));
+  } catch(e) { showAlert("rep2-alert", e.message, "error"); }
+  loader.classList.remove("show");
+}
+function copyRepurposed() { copyText(repurposedText, document.getElementById("rep2-copy-btn")); }
+function copyPostItem(btn, b64) {
+  const text = decodeURIComponent(escape(atob(b64)));
+  navigator.clipboard.writeText(text).then(() => {
+    const orig = btn.textContent;
+    btn.textContent = "✓ Copied!"; btn.classList.add("copied");
+    setTimeout(() => { btn.textContent = orig; btn.classList.remove("copied"); }, 2000);
+  });
+}
+
+// ── HASHTAG GENERATOR ──
+let hashText = "";
+async function generateHashtags() {
+  const niche = document.getElementById("hash-niche").value.trim();
+  const platform = document.getElementById("hash-platform").value;
+  if (!niche) { showAlert("hash-alert","Enter a niche.","error"); return; }
+  const loader = document.getElementById("hash-loader");
+  loader.classList.add("show");
+  document.getElementById("hash-output").textContent = "";
+  document.getElementById("hash-copy-btn").style.display = "none";
+  try {
+    const prompt = `Generate 3 different hashtag sets for ${platform} in the "${niche}" niche.
+
+SET A — High reach (large hashtags 500K–5M posts): 7 hashtags
+SET B — Mid-range (50K–500K posts): 8 hashtags
+SET C — Niche/local (under 50K posts, highly targeted): 5 hashtags
+
+Also include 2 LOCATION TAGS relevant to Kenya/East Africa if applicable.
+
+Format clearly with set labels. Explain in one line why each set is useful.
+Total: 20–22 hashtags across all sets.`;
+    hashText = await callClaude(prompt, 800);
+    document.getElementById("hash-output").textContent = hashText;
+    document.getElementById("hash-copy-btn").style.display = "inline-flex";
+  } catch(e) { showAlert("hash-alert", e.message, "error"); }
+  loader.classList.remove("show");
+}
+function copyHashtags() { copyText(hashText, document.getElementById("hash-copy-btn")); }
+
+// ── HOOK TESTER ──
+let hookText = "";
+async function testHook() {
+  const platform = document.getElementById("hook-platform").value;
+  const niche = document.getElementById("hook-niche").value.trim();
+  const hook = document.getElementById("hook-input").value.trim();
+  if (!hook) { showAlert("hook-alert","Paste your opening line first.","error"); return; }
+  const loader = document.getElementById("hook-loader");
+  loader.classList.add("show");
+  document.getElementById("hook-output").textContent = "";
+  document.getElementById("hook-copy-btn").style.display = "none";
+  try {
+    const prompt = `You are a viral content strategist. Evaluate this ${platform} opening line for the ${niche || "general"} niche.
+
+HOOK TO EVALUATE:
+"${hook}"
+
+Respond in this exact format:
+
+SCORE: [X/10]
+
+WHY IT SCORES THIS:
+[2-3 sentences on what works or doesn't — be direct]
+
+REWRITE A (Curiosity hook):
+[rewritten version that creates a knowledge gap]
+
+REWRITE B (Bold claim hook):
+[rewritten version that makes a surprising or bold statement]
+
+REWRITE C (Story hook):
+[rewritten version that opens a relatable story or situation]
+
+WHAT MAKES A GREAT ${platform.toUpperCase()} HOOK:
+[3 bullet points specific to this platform's algorithm and audience behavior]`;
+    hookText = await callClaude(prompt, 900);
+    document.getElementById("hook-output").textContent = hookText;
+    document.getElementById("hook-copy-btn").style.display = "inline-flex";
+  } catch(e) { showAlert("hook-alert", e.message, "error"); }
+  loader.classList.remove("show");
+}
+function copyHook() { copyText(hookText, document.getElementById("hook-copy-btn")); }
+
+// ── ALGORITHM AUDIT ──
+let auditText = "";
+async function auditPost() {
+  const platform = document.getElementById("audit-platform").value;
+  const niche = document.getElementById("audit-niche").value.trim();
+  const post = document.getElementById("audit-input").value.trim();
+  if (!post) { showAlert("audit-alert","Paste the post first.","error"); return; }
+  const loader = document.getElementById("audit-loader");
+  loader.classList.add("show");
+  document.getElementById("audit-output").textContent = "";
+  document.getElementById("audit-copy-btn").style.display = "none";
+  try {
+    const prompt = `You are a senior ${platform} algorithm specialist. Audit this post from a ${niche || "general"} account and score it on the signals that ${platform}'s algorithm measures.
+
+POST TO AUDIT:
+${post}
+
+Score each signal from 1–10 and give a specific fix for any score below 7:
+
+HOOK STRENGTH: [score] — [what's wrong / what works]
+FIX: [exact rewrite of the opening line if needed]
+
+SAVE-WORTHINESS: [score] — [does it give enough value that people save it?]
+FIX: [specific addition to make it more save-worthy]
+
+SHARE-TRIGGER: [score] — [does it make someone want to send this to a friend?]
+FIX: [what to add to trigger shares]
+
+COMMENT PROMPT: [score] — [does it invite comments naturally?]
+FIX: [exact CTA question to add]
+
+HASHTAG QUALITY: [score] — [relevant, tiered, not spammy?]
+FIX: [better hashtags if needed]
+
+CTA CLARITY: [score] — [is the call to action clear and specific?]
+FIX: [rewritten CTA if needed]
+
+OVERALL ALGORITHM SCORE: [X/10]
+
+PRIORITY ACTIONS (do these first):
+1. [most impactful fix]
+2. [second fix]
+3. [third fix]`;
+    auditText = await callClaude(prompt, 1200);
+    document.getElementById("audit-output").textContent = auditText;
+    document.getElementById("audit-copy-btn").style.display = "inline-flex";
+  } catch(e) { showAlert("audit-alert", e.message, "error"); }
+  loader.classList.remove("show");
+}
+function copyAudit() { copyText(auditText, document.getElementById("audit-copy-btn")); }
+
+// ── 7-DAY STORY SEQUENCE ──
+let storyText = "";
+async function generateStories() {
+  const niche = document.getElementById("story-niche").value.trim();
+  const goal = document.getElementById("story-goal").value;
+  if (!niche) { showAlert("story-alert","Enter the client niche.","error"); return; }
+  const loader = document.getElementById("story-loader");
+  loader.classList.add("show");
+  document.getElementById("story-output").textContent = "";
+  document.getElementById("story-copy-btn").style.display = "none";
+  try {
+    const prompt = `Create a 7-day Instagram Story sequence for a ${niche} account. Goal: ${goal}.
+
+Stories posted daily keep the account at the front of followers' story bars and signal to Instagram that the account is active — boosting reach on all posts.
+
+For each day write:
+- Story type (Poll / Question / Behind the scenes / Tip / Countdown / Quiz / CTA)
+- Exact text/script for the story (under 100 characters for overlay text)
+- Interactive element to use (poll options, question sticker, slider, link)
+- Why this story type works for the algorithm that day
+
+Format clearly as DAY 1 through DAY 7. Make each story build on the last — create a narrative arc that makes followers want to come back tomorrow. End Day 7 with a strong sales or follow CTA.`;
+    storyText = await callClaude(prompt, 1200);
+    document.getElementById("story-output").textContent = storyText;
+    document.getElementById("story-copy-btn").style.display = "inline-flex";
+  } catch(e) { showAlert("story-alert", e.message, "error"); }
+  loader.classList.remove("show");
+}
+function copyStories() { copyText(storyText, document.getElementById("story-copy-btn")); }
+
+// ── POSTING SCHEDULE ──
+let schedText = "";
+async function generateSchedule() {
+  const niche = document.getElementById("sched-niche").value.trim();
+  const location = document.getElementById("sched-location").value.trim();
+  const platforms = getSelectedPlats("sched-platforms");
+  if (!niche) { showAlert("sched-alert","Enter the client niche.","error"); return; }
+  const loader = document.getElementById("sched-loader");
+  loader.classList.add("show");
+  document.getElementById("sched-output").textContent = "";
+  document.getElementById("sched-copy-btn").style.display = "none";
+  try {
+    const prompt = `Generate an optimal weekly posting schedule for a ${niche} account targeting audiences in ${location || "Kenya / East Africa"}.
+
+Platforms: ${platforms || "Instagram, TikTok, Facebook"}
+
+For each platform provide:
+1. Best days to post (be specific — not just "weekdays")
+2. Best times in EAT (East Africa Time) with reason why
+3. Post frequency per week
+4. Content type to post at each time (Reel, Carousel, Static, Story, etc.)
+5. One thing to AVOID (e.g. never post X at Y time because...)
+
+Also include:
+- A ready-to-use weekly schedule table (Mon–Sun) showing exactly what to post and when on each platform
+- How long to stay active after posting (comment back, reply to DMs) to boost the algorithm
+
+Be specific to ${niche} behavior patterns — a gym audience behaves differently from a restaurant audience.`;
+    schedText = await callClaude(prompt, 1200);
+    document.getElementById("sched-output").textContent = schedText;
+    document.getElementById("sched-copy-btn").style.display = "inline-flex";
+  } catch(e) { showAlert("sched-alert", e.message, "error"); }
+  loader.classList.remove("show");
+}
+function copySchedule() { copyText(schedText, document.getElementById("sched-copy-btn")); }
+
+// ── DM FUNNEL ──
+let dmText = "";
+async function generateDMFunnel() {
+  const niche = document.getElementById("dm-niche").value.trim();
+  const offer = document.getElementById("dm-offer").value.trim();
+  const trigger = document.getElementById("dm-trigger").value;
+  const tone = document.getElementById("dm-tone").value;
+  if (!niche || !offer) { showAlert("dm-alert","Fill in niche and what they're selling.","error"); return; }
+  const loader = document.getElementById("dm-loader");
+  loader.classList.add("show");
+  document.getElementById("dm-output").textContent = "";
+  document.getElementById("dm-copy-btn").style.display = "none";
+  try {
+    const prompt = `Write a 3-message DM sequence for a ${niche} Instagram account selling ${offer}. Trigger: ${trigger}. Tone: ${tone}.
+
+The goal is to convert the interaction into a booking, purchase, or enquiry — without being pushy or salesy.
+
+Write exactly 3 messages:
+
+MESSAGE 1 — Sent immediately after the trigger (build rapport, NO selling):
+[message — under 50 words, warm, human, references what they did]
+
+MESSAGE 2 — Sent 24 hours later if no reply (provide value, soft mention of offer):
+[message — under 60 words, share a tip or insight relevant to their interest, mention the offer naturally]
+
+MESSAGE 3 — Sent 48 hours after message 2 if still no reply (soft close):
+[message — under 50 words, create soft urgency, clear CTA, easy to say yes to]
+
+After the 3 messages, add:
+REPLY GUIDE — how to respond if they:
+- Say "how much?"
+- Say "not interested"
+- Say "maybe later"
+- Don't reply at all
+
+Keep all messages in ${tone} tone. Sound like a real person, not a script.`;
+    dmText = await callClaude(prompt, 1000);
+    document.getElementById("dm-output").textContent = dmText;
+    document.getElementById("dm-copy-btn").style.display = "inline-flex";
+  } catch(e) { showAlert("dm-alert", e.message, "error"); }
+  loader.classList.remove("show");
+}
+function copyDM() { copyText(dmText, document.getElementById("dm-copy-btn")); }
+
+// ── ENTER KEY on gate ──
+document.getElementById("gate-key-input").addEventListener("keydown", e => {
+  if (e.key === "Enter") saveKey();
+});
+</script>
+</body>
+</html>

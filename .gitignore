@@ -1,0 +1,31 @@
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor folders
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment / secrets (never commit API keys)
+.env
+.env.local
+.env.production
+
+# Node (if ever added)
+node_modules/
+
+# Vercel local
+.vercel/
+
+# Temp files
+*.tmp
+*.bak

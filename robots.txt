@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /
+
+# Onyx Digital Platform is a private internal business tool.
+# No pages should be indexed by search engines.
