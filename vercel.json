@@ -1,12 +1,6 @@
 {
   "version": 2,
   "name": "onyx-digital-platform",
-  "builds": [
-    {
-      "src": "index.html",
-      "use": "@vercel/static"
-    }
-  ],
   "routes": [
     {
       "src": "/robots.txt",
